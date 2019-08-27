@@ -17,9 +17,13 @@ This repository contains the source code for a Flask application that allows one
 Clone the repo, create a virtual environment, then install the dependencies. 
 
 ```bash
-git clone https://github.com/ilopezfr/digit-classifier-app
+git clone https://github.com/ilopezfr/digit-classifier-app.git
 cd digit-classifier-app
 pip install -r requirements.txt
+
+## download the model.h5 and save it into model folder
+wget "https://drive.google.com/open?id=15ij4G9nYEb74CqhqooXRIyWjfJrqDmey" -P /model
+
 
 ```
 
