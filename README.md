@@ -11,7 +11,7 @@
 
 ## Instructions
 
-This repository contains the source code for a Flask application that allows one to upload an image of a handwritten digit and it returns the predicted digit. 
+This repository contains the source code for a Python Flask Server application that allows one to upload an image of a handwritten digit and it returns the predicted digit. 
 
 
 Clone the repo, create a virtual environment, then install the dependencies. 
@@ -43,6 +43,7 @@ The code consists of X Python scripts and the file config.json that contains var
 ```
 
 ## Train the model
+A trained model file on MNIST dataset is already offered and can be directly downloaded from [this link](https://drive.google.com/open?id=15ij4G9nYEb74CqhqooXRIyWjfJrqDmey). However, should you want to rebuild the model using the same architecture, you can run the following script:
 
 ```bash
 python model/train.py
@@ -50,8 +51,9 @@ python model/train.py
 
 
 
-## Run the Flask app and predict on a new image.
+## Start the server application and predict on a new image.
 Flask allows you to serve an image of a handwritten digit with the server and get a prediction.
+Before starting the server, make sure have a `model.h5` file saved in the `/model` folder.
 ```bash
 python app.py
 ```
