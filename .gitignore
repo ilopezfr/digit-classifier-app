@@ -1,9 +1,21 @@
 #ignore
-model/__pycache__
-model/model.h5
-data
-uploaded_images/*
+venv/
 
+*.pyc
+model/__pycache__/
+model/model.h5
+model/test_resize.py
+
+data/
+uploaded_images/*.png
+uploaded_images/*.jpg
+uploaded_images/*.jpeg
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
 
 # keep
 !uploaded_images/.gitkeep

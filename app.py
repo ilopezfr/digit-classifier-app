@@ -25,7 +25,8 @@ def upload_file():
             return redirect('/error')
         file = request.files['file']
 
-        # check if user has uploaded an empty file
+        # check if user has not select file, browser also
+        # submit an empty part without filename
         if file.filename == '':
             return redirect('/error')
 
