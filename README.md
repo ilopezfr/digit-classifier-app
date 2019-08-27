@@ -8,30 +8,37 @@
 
 ## Requirements
 
-- Python 3
+This application is written using Python 3.6.
+
+Modules:
 - Tensorflow 
 - Keras
-- Flask 
+- Tensorflow
+- Numpy
+- Flask (1.0.2)
+- Gunicorn (19.9.0): a Python WSGI HTTP Server for UNIX.
+- NGINX (1.15.12)
+
 
 ## Instructions
 
-This repository contains the source code for a Python Flask Server application that allows one to upload an image of a handwritten digit and it returns the predicted digit. 
+This repository contains the source code for a Python Flask Server application that has a Keras ML model deployed. REST API is used to communicate with the deployed model. The application allows one to upload an image of a handwritten digit and it returns the predicted digit. 
 
 
 Clone the repo, install the dependencies, and download the model weights. 
 
 ```bash
 git clone https://github.com/ilopezfr/digit-classifier-app.git
+cd digit-classifier-app
 ```
 
 Create virtual environment and activate it:
 ```bash
-python3 -m venv venv
-. venv/bin/activate
+virtualenv -p /usr/local/bin/python3 venv
+source venv/bin/activate
 ```
 Install dependencies:
 ```bash
-cd digit-classifier-app
 pip install -r requirements.txt
 ```
 
@@ -62,13 +69,16 @@ A trained model file on MNIST dataset is already offered and can be directly dow
 ```bash
 python model/train.py
 ```
-
+This will create a model file `model.h5` in the folder `\model`. Now we are ready to serve the model via Flask. 
 
 
 ## Start the server application and predict on a new image.
 Flask allows you to serve an image of a handwritten digit with the server and get a prediction. It currently accepts images with the extensions 'png', 'jpg' and 'jpeg'.
 
 Before starting the server, make sure have a `model.h5` file saved in the `/model` folder.
+
+In the code below, I provide a REST endpoint that supprts GET and POST requests.
+
 ```bash
 $ python app.py
 * Serving Flask app "app" (lazy loading)

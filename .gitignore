@@ -10,6 +10,7 @@ data/
 uploaded_images/*.png
 uploaded_images/*.jpg
 uploaded_images/*.jpeg
+requirements-2.txt
 
 instance/
 
