@@ -1,4 +1,5 @@
-__pycache__
+#ignore
+model/__pycache__
 data
 uploaded_images/*
 
