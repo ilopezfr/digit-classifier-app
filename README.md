@@ -40,10 +40,17 @@ The code consists of X Python scripts and the file config.json that contains var
 
 ## Train the model
 
+```bash
+python model/train.py
+```
+
 
 
 ## Run the Flask app and predict on a new image.
 Flask allows you to serve an image of a handwritten digit with the server and get a prediction.
+```bash
+python app.py
+```
 
 
 

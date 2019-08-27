@@ -1,5 +1,6 @@
 #ignore
 model/__pycache__
+model/model.h5
 data
 uploaded_images/*
 
