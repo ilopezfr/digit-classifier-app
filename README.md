@@ -10,15 +10,12 @@
 
 This application is written using Python 3.6.
 
-Modules:
-- Tensorflow 
+Main Modules:
+- Tensorflow (1.12.0)
 - Keras
-- Tensorflow
-- Numpy
+- Numpy (1.16.0)
 - Flask (1.0.2)
-- Gunicorn (19.9.0): a Python WSGI HTTP Server for UNIX.
-- NGINX (1.15.12)
-
+- Gunicorn (19.9.0)
 
 ## Instructions
 

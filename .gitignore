@@ -18,5 +18,12 @@ instance/
 .coverage
 htmlcov/
 
+dist/
+build/
+
+tests/__pycache__/
+
+.DS_Store
+
 # keep
 !uploaded_images/.gitkeep
