@@ -1,0 +1,7 @@
+__pycache__
+data
+uploaded_images/*
+
+
+# keep
+!uploaded_images/.gitkeep
