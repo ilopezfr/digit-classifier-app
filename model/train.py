@@ -24,7 +24,7 @@ batch_size = 128
 num_classes = 10
 num_epochs = int(args.epochs)  #5
 input_shape = (28, 28, 1)
-learning_rate = args.learning_rate # 0.001
+learning_rate = float(args.learning_rate) # 0.001
 
 
 def get_data():
@@ -92,7 +92,7 @@ def init_model():
 
     model = Model(input_layer, out)
     print(model.summary())
-    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, decay=0.0, amsgrad=False)
+    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, decay=0.5, amsgrad=False)
     model.compile(optimizer=adam,
                 loss=categorical_crossentropy,
                 metrics=['accuracy'])
@@ -103,7 +103,7 @@ def init_model():
     return model  
   
   
-def run_network(data=None, model=None, epochs=20, batch=128):
+def run_network(data=None, model=None, epochs=10, batch=128):
     try:
         start_time = time.time()
         if data is None: 
