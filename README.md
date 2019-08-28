@@ -76,13 +76,18 @@ python model/train.py
 ```
 This will create a model file `model.h5` in the folder `\model`. Now we are ready to serve the model via Flask. 
 
+## Quick model inference in local
+To quickly test the model in one file, simply run the following line of code:
+```bash
+python model/predict.py -f <path/to/file>
+```
+It currently accepts images with the extensions 'png', 'jpg' and 'jpeg'.
+
 
 ## Start the server application and predict on a new image.
-Flask allows you to serve an image of a handwritten digit with the server and get a prediction. It currently accepts images with the extensions 'png', 'jpg' and 'jpeg'.
+Flask allows you to serve an image of a handwritten digit with the server and get a prediction. 
 
-Before starting the server, make sure have a `model.h5` file saved in the `/model` folder.
-
-In the code below, I provide a REST endpoint that supprts GET and POST requests.
+In the code below, I provide a REST endpoint that supports GET and POST requests.
 
 ```bash
 $ python app.py
@@ -92,8 +97,10 @@ $ python app.py
 ```
 You can now access the REST API via http://127.0.0.1:5002.
 
+While lightweight, Flask's built-in server is not suitable for production as it doesn't scale well. For production purposes, I've deployed the app in Heroku. 
 
-
+This can be access at:
+https://quiet-journey-42975.herokuapp.com/
 
 ## Model Architecture
 
