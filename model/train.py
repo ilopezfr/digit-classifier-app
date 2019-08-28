@@ -4,12 +4,13 @@ import keras
 import numpy as np
 from keras.datasets import mnist
 from keras.layers import Conv2D, MaxPooling2D, Input, Flatten
-from keras.layers import Concatenate, Dense, Dropout
+from keras.layers import Concatenate, Dense, Dropout, Activation
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.losses import categorical_crossentropy
 from keras.callbacks import ModelCheckpoint, TensorBoard
 from keras.preprocessing.image import ImageDataGenerator
+from keras.layers.normalization import BatchNormalization
 import argparse
 
 
@@ -81,16 +82,17 @@ def init_model():
     drop2_2 = Dropout(0.5)(pool2_2)
     conv3_1 = Conv2D(256, (1, 1), activation='relu', padding='same')(drop2_1)
     conv3_2 = Conv2D(256, (1, 1), activation='relu', padding='same')(drop2_2)
-    merged = Concatenate(axis=-1)([conv3_1, conv3_2])
-    merged = Dropout(0.5)(merged)
-    merged = Flatten()(merged)
-    fc1 = Dense(1000, activation='relu')(merged)
+    concat = Concatenate(axis=-1)([conv3_1, conv3_2])
+    concat = MaxPooling2D(2, 2)(concat)
+    concat = Dropout(0.5)(concat)
+    concat = Flatten()(concat)
+    fc1 = Dense(1000, activation='relu')(concat)
     fc2 = Dense(500, activation='relu')(fc1)
     out = Dense(10, activation="softmax")(fc2)
 
     model = Model(input_layer, out)
-
-    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+    print(model.summary())
+    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, decay=0.0, amsgrad=False)
     model.compile(optimizer=adam,
                 loss=categorical_crossentropy,
                 metrics=['accuracy'])
