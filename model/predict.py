@@ -21,12 +21,12 @@ filepath = "./model"
 
 
 # load json and create model
-json_file = open(os.path.join(filepath,'model-lite.json'), 'r')
+json_file = open(os.path.join(filepath,'model.json'), 'r') # alternative: model-lite.json
 loaded_model_json = json_file.read()
 json_file.close()
 model = model_from_json(loaded_model_json)
 # load weights into new model
-model.load_weights(os.path.join(filepath,'model-weights-lite.h5'))
+model.load_weights(os.path.join(filepath,'model-weights.h5'))  # alternative: model-weights-lite.h5
 print("Loaded model from disk")
 
 
