@@ -38,11 +38,12 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
+<!--
 Download the model.h5 and save it into model folder
 ```bash
 wget "https://drive.google.com/open?id=15ij4G9nYEb74CqhqooXRIyWjfJrqDmey" -P /model
 ```
+-->
 
 
 ## Overview of the Code
@@ -52,12 +53,19 @@ This repo is structured as follows:
 ├── model
 |    ├── predict.py
 |    ├── train.py
-|    ├── model.h5
+|    ├── model-weights.h5
+|    ├── model.json
+|    ├── model-weights-lite.h5
+|    ├── model.json
 ├── templates
 |    ├── error.html
 |    ├── index.html
 |    ├── predict.html
+├── tests
+|    ├── conftest.py
+|    ├── test_app.py
 ├── app.py
+├── Procfile
 ```
 
 ## Train the model
@@ -85,3 +93,12 @@ $ python app.py
 You can now access the REST API via http://127.0.0.1:5002.
 
 
+
+
+## Model Architecture
+
+<img src="images_repo/mnist-model-architecture.png" width="480"  />
+
+The neural network contains 3 Convolutional layers, followed by 2 Fully Connected layers and 1 output layer that provides the estimations for each one of the 10 digit categories. 
+
+<img src="images_repo/mnist-model-summary.png" width="480"  />

@@ -7,8 +7,9 @@ import argparse
 #from test_resize import resize_image
 
 ap = argparse.ArgumentParser()
-# Basic usage: python predict.py /path/to/image
-ap.add_argument(dest='image_path', action='store',
+# Basic usage: python predict.py -f /path/to/image
+ap.add_argument("-f", "--file", 
+                    dest='image_path', action='store', required=False,
                     default = './test_images/six-1.png', 
                     help='Path to image, e.g., "./test_images/six-1.png"')
 

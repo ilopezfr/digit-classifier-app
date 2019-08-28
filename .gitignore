@@ -7,7 +7,7 @@ model/__pycache__/
 model/model.h5
 #model/model-weights.h5
 #model/model.json
-model/old_models/*
+model/old_models/
 model/test_resize.py
 
 data/
