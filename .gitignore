@@ -5,8 +5,8 @@ __pycache__/
 *.pyc
 model/__pycache__/
 model/model.h5
-models/model-weights.h5
-models/model.json
+model/model-weights.h5
+model/model.json
 model/old_models/*
 model/test_resize.py
 
