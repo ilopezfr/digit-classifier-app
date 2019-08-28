@@ -8,7 +8,6 @@ gevent==1.2.1
 grpcio==1.18.0
 gunicorn==19.9.0
 h5py==2.9.0
-itsdangerous==1.1.0
 Jinja2==2.10.1
 Keras==2.2.5
 Keras-Applications==1.0.8
@@ -21,7 +20,6 @@ protobuf==3.6.1
 six==1.12.0
 requests==2.14.2
 scikit-learn==0.18.1
-sympy==1.0
 tensorboard==1.12.2
 tensorflow==1.12.0
 termcolor==1.1.0

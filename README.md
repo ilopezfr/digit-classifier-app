@@ -31,7 +31,7 @@ cd digit-classifier-app
 
 Create virtual environment and activate it:
 ```bash
-virtualenv -p /usr/local/bin/python3 venv
+virtualenv -p /usr/local/bin/python3.6 venv
 source venv/bin/activate
 ```
 Install dependencies:
@@ -46,7 +46,7 @@ wget "https://drive.google.com/open?id=15ij4G9nYEb74CqhqooXRIyWjfJrqDmey" -P /mo
 
 
 ## Overview of the Code
-The code consists of X Python scripts and the file config.json that contains various parameter settings. 
+This repo is structured as follows:
 
 ```bash
 ├── model
