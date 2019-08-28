@@ -1,6 +1,7 @@
 import time
 import os
 import keras
+import numpy as np
 from keras.datasets import mnist
 from keras.layers import Conv2D, MaxPooling2D, Input, Flatten
 from keras.layers import Concatenate, Dense, Dropout
@@ -8,6 +9,7 @@ from keras.models import Model
 from keras.optimizers import Adam
 from keras.losses import categorical_crossentropy
 from keras.callbacks import ModelCheckpoint, TensorBoard
+from keras.preprocessing.image import ImageDataGenerator
 import argparse
 
 
@@ -34,6 +36,32 @@ def get_data():
 
     y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
+
+    return (x_train, y_train), (x_test, y_test)
+
+def data_augmentation(data, augment_size=5000): 
+    (x_train, y_train), (x_test, y_test) = data
+    # augment train data with different transformations
+    image_generator = ImageDataGenerator(
+        rotation_range=10,
+        zoom_range = 0.05, 
+        width_shift_range=0.05,
+        height_shift_range=0.05,
+        horizontal_flip=False,
+        vertical_flip=False, 
+        data_format="channels_last",
+        zca_whitening=True)
+    # fit data for zca whitening
+    image_generator.fit(x_train, augment=True)
+    # get transformed images
+    randidx = np.random.randint(x_train.shape[0], size=augment_size)
+    x_augmented = x_train[randidx].copy()
+    y_augmented = y_train[randidx].copy()
+    x_augmented = image_generator.flow(x_augmented, np.zeros(augment_size),
+                                batch_size=augment_size, shuffle=False).next()[0]
+    # append augmented data to trainset
+    x_train = np.concatenate((x_train, x_augmented))
+    y_train = np.concatenate((y_train, y_augmented))
 
     return (x_train, y_train), (x_test, y_test)
 
@@ -129,5 +157,6 @@ def run_network(data=None, model=None, epochs=20, batch=128):
       
 if __name__ == '__main__':
     data = get_data()   # this way we can explicitly use other data
+    data = data_augmentation(data)
     model = init_model()
     run_network(data, model)
