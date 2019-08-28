@@ -1,0 +1,8 @@
+{
+    "name": "digit-classifier-app",
+    "description": "Python Flask Server app to classify handwritten digits",
+    "image": "heroku/python",
+    "repository": "https://github.com/ilopezfr/digit-classifier-app",
+    "keywords": ["keras", "python", "flask"],
+    "addons": ["heroku-postgresql"]
+  }
