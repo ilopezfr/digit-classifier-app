@@ -7,6 +7,7 @@ import numpy as np
 model = tf.keras.models.load_model('./model/model.h5')
 
 graph = tf.get_default_graph()
+#graph = tf.compat.v1.get_default_graph()  # tf 1.14.0
 
 def resize_image(image):
     image_size = (28, 28)
