@@ -1,3 +1,4 @@
+appscript==1.0.1
 absl-py==0.7.0
 astor==0.7.1
 certifi==2018.11.29
