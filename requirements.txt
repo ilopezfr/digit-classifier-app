@@ -73,7 +73,6 @@ mistune==0.7.4
 mpmath==0.19
 msgpack-python==0.4.8
 multipledispatch==0.4.9
-navigator-updater==0.1.0
 nbconvert==5.1.1
 nbformat==4.3.0
 networkx==1.11
@@ -84,12 +83,9 @@ numba==0.33.0
 numexpr==2.6.2
 numpy==1.16.0
 numpydoc==0.6.0
-odo==0.5.0
-olefile==0.44
 openpyxl==2.4.7
 packaging==16.8
 pandas==0.20.1
-pandocfilters==1.4.1
 partd==0.3.8
 pathlib2==2.2.1
 patsy==0.4.1
@@ -98,7 +94,6 @@ pexpect==4.2.1
 pickleshare==0.7.4
 Pillow==5.4.1
 ply==3.10
-prompt-toolkit==1.0.14
 protobuf==3.6.1
 psutil==5.2.2
 ptyprocess==0.5.1
@@ -108,7 +103,6 @@ pycparser==2.17
 pycrypto==2.6.1
 pycurl==7.43.0
 pyflakes==1.5.0
-Pygments==2.2.0
 pylint==1.6.4
 pyodbc==4.0.16
 pyOpenSSL==17.0.0
@@ -132,11 +126,7 @@ simplegeneric==0.8.1
 singledispatch==3.4.0.3
 six==1.12.0
 snowballstemmer==1.2.1
-sortedcollections==0.5.3
-sortedcontainers==1.5.7
-Sphinx==1.5.6
 spyder==3.1.4
-SQLAlchemy==1.1.9
 statsmodels==0.8.0
 sympy==1.0
 tables==3.3.0
@@ -151,11 +141,5 @@ tornado==4.5.1
 traitlets==4.3.2
 unicodecsv==0.14.1
 wcwidth==0.1.7
-Werkzeug==0.14.1
-widgetsnbextension==2.0.0
-wrapt==1.10.10
-xlrd==1.0.0
-XlsxWriter==0.9.6
-xlwings==0.10.4
-xlwt==1.2.0
-zict==0.1.2
+Werkzeug==0.15.5
+
