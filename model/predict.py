@@ -1,10 +1,34 @@
 import tensorflow as tf
+from keras.models import model_from_json
 from PIL import Image
 import numpy as np
+import os
+import argparse
 #from test_resize import resize_image
 
+ap = argparse.ArgumentParser()
+# Basic usage: python predict.py /path/to/image
+ap.add_argument(dest='image_path', action='store',
+                    default = './test_images/six-1.png', 
+                    help='Path to image, e.g., "./test_images/six-1.png"')
+
+args = ap.parse_args()
+image_path = args.image_path
+
 # load model
-model = tf.keras.models.load_model('./model/model.h5')
+filepath = "./model"
+#model = tf.keras.models.load_model(os.path.join(filepath,'model.h5'))
+
+
+# load json and create model
+json_file = open(os.path.join(filepath,'model.json'), 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+model = model_from_json(loaded_model_json)
+# load weights into new model
+model.load_weights(os.path.join(filepath,'model-weights.h5'))
+print("Loaded model from disk")
+
 
 graph = tf.get_default_graph()
 #graph = tf.compat.v1.get_default_graph()  # tf 1.14.0
@@ -44,4 +68,4 @@ def predict_image(test_image):
 
 # Optional: test model with sample image
 if __name__ == '__main__':
-    predict_image('./test_images/six-1.png')
+    predict_image(image_path)

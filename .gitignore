@@ -1,9 +1,11 @@
 #ignore
 venv/
 
+__pycache__/
 *.pyc
 model/__pycache__/
 model/model.h5
+model/old_models/
 model/test_resize.py
 
 data/

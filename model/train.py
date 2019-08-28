@@ -76,24 +76,25 @@ def init_model():
     pool1 = MaxPooling2D(2, 2)(conv1)
     conv2_1 = Conv2D(64, (1, 1), activation='relu', padding='same')(pool1)
     pool2_1 = MaxPooling2D(2, 2)(conv2_1)
-    drop2_1 = Dropout(0.5)(pool2_1)
+    drop2_1 = Dropout(0.25)(pool2_1)
     conv2_2 = Conv2D(64, (1, 1), activation='relu', padding='same')(pool1)
     pool2_2 = MaxPooling2D(2, 2)(conv2_2)
-    drop2_2 = Dropout(0.5)(pool2_2)
+    drop2_2 = Dropout(0.4)(pool2_2)
     conv3_1 = Conv2D(256, (1, 1), activation='relu', padding='same')(drop2_1)
     conv3_2 = Conv2D(256, (1, 1), activation='relu', padding='same')(drop2_2)
-    concat = Concatenate(axis=-1)([conv3_1, conv3_2])
-    #concat = MaxPooling2D(2, 2)(concat)
-    concat = Dropout(0.5)(concat)
-    #concat = Flatten()(concat)
-    fc1 = Dense(1000, activation='relu')(concat)
+    conv3 = Concatenate(axis=-1)([conv3_1, conv3_2])
+    #conv3 = MaxPooling2D(2, 2)(conv3)
+    conv3 = Dropout(0.1)(conv3)
+    conv3 = Flatten()(conv3)
+    fc1 = Dense(1000, activation='relu')(conv3)
+    #fc1 = Dropout(0.5)(fc1)
     fc2 = Dense(500, activation='relu')(fc1)
-    fc2 = Flatten()(fc2)
+    #fc2 = Flatten()(fc2)
     out = Dense(10, activation="softmax")(fc2)
 
     model = Model(input_layer, out)
     print(model.summary())
-    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, decay=0.5, amsgrad=False)
+    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, decay=1e-6, amsgrad=False)
     model.compile(optimizer=adam,
                 loss=categorical_crossentropy,
                 metrics=['accuracy'])
@@ -141,13 +142,13 @@ def run_network(data=None, model=None, epochs=10, batch=128):
         print('Test accuracy:', test_acc)
 
         # save the model
-        model.save(os.path.join(filepath,'model.h5'))
+        model.save(os.path.join(filepath,'model4.h5'))
         # serialize model to JSON
-        # model_json = model.to_json()
-        # with open(os.path.join(filepath,'model.json'), 'w') as json_file:
-        #     json_file.write(model_json)
+        model_json = model.to_json()
+        with open(os.path.join(filepath,'model4.json'), 'w') as json_file:
+            json_file.write(model_json)
         # serialize weights to HDF5
-        # model.save_weights(os.path.join(filepath,'model-weights.h5'))
+        model.save_weights(os.path.join(filepath,'model-weights4.h5'))
         print('Saved model to disk')
 
 
