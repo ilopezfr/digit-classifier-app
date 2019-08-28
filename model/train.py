@@ -8,11 +8,20 @@ from keras.models import Model
 from keras.optimizers import Adam
 from keras.losses import categorical_crossentropy
 from keras.callbacks import ModelCheckpoint, TensorBoard
+import argparse
+
+
+ap = argparse.ArgumentParser(description='Accept model parameters')
+ap.add_argument("-e", "--epochs", dest='epochs', default=5, required=False)
+ap.add_argument("-l", "--learning_rate", dest='learning_rate', default=0.001, required=False)
+args = ap.parse_args()
+
 
 batch_size = 128
 num_classes = 10
-num_epochs = 2
+num_epochs = int(args.epochs)  #5
 input_shape = (28, 28, 1)
+learning_rate = args.learning_rate # 0.001
 
 
 def get_data():
@@ -53,14 +62,14 @@ def init_model():
 
     model = Model(input_layer, out)
 
-    adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+    adam = Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
     model.compile(optimizer=adam,
                 loss=categorical_crossentropy,
                 metrics=['accuracy'])
 
 
     print('Model compiled in {0} seconds'.format(time.time() - start_time))
-
+    print('Using {0:2d} epochs and learning_rate={1:2.5f}'.format(num_epochs, learning_rate))
     return model  
   
   
