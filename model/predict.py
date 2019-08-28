@@ -6,15 +6,17 @@ import os
 import argparse
 #from test_resize import resize_image
 
-ap = argparse.ArgumentParser()
-# Basic usage: python predict.py -f /path/to/image
-ap.add_argument("-f", "--file", 
-                    dest='image_path', action='store', required=False,
-                    default = './test_images/six-1.png', 
-                    help='Path to image, e.g., "./test_images/six-1.png"')
+# ap = argparse.ArgumentParser()
+# # Basic usage: python predict.py -f /path/to/image
+# ap.add_argument("-f", "--file", 
+#                     dest='image_path', action='store', required=False,
+#                     default = './test_images/six-1.png', 
+#                     help='Path to image, e.g., "./test_images/six-1.png"')
 
-args = ap.parse_args()
-image_path = args.image_path
+# args = ap.parse_args()
+# image_path = args.image_path
+
+image_path = './test_images/six-1.png'
 
 # load model
 filepath = "./model"

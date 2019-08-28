@@ -102,6 +102,12 @@ While lightweight, Flask's built-in server is not suitable for production as it 
 This can be access at:
 https://quiet-journey-42975.herokuapp.com/
 
+I also added a self-hosted solution using `gunicorn`, a WSGI HTTP Server for UNIX. To run the Flask application in this server, simply use:
+```bash
+gunicorn "app:create_app()" -b 0.0.0.0:5002 --workers 8 --timeout 600 --log-level critical
+```
+
+
 ## Model Architecture
 
 <img src="images_repo/mnist-model-architecture.png" width="480"  />
