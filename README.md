@@ -69,25 +69,24 @@ This repo is structured as follows:
 ```
 
 ## Train the model
-A trained model file on MNIST dataset is already offered and can be directly downloaded from [this link](https://drive.google.com/open?id=15ij4G9nYEb74CqhqooXRIyWjfJrqDmey). However, should you want to rebuild the model using the same architecture, you can run the following script:
+A trained model on MNIST dataset is already offered and stored under the file `/model`. The model was trained on 70,000 images, using the architecture described in the section below. It achieves 98% test accuracy after 20 epochs. 
+
+However, should you want to rebuild the model using the same architecture that's described below, you can run the following script:
 
 ```bash
-python model/train.py
+python model/train.py --e=20 --l=0.001
 ```
-This will create a model file `model.h5` in the folder `\model`. Now we are ready to serve the model via Flask. 
+The current script downloads MNIST dataset with 60,000 images, pre-process the images, performs data augmentation (+10000), and train and validates the model. 
 
-## Quick model inference in local
-To quickly test the model in one file, simply run the following line of code:
-```bash
-python model/predict.py -f <path/to/file>
-```
-It currently accepts images with the extensions 'png', 'jpg' and 'jpeg'.
+This will create the model files `model.h5`, `model-weights.h5`, `model.json` in the folder `\model`. 
+
+With the model file, we are ready to serve the model via Flask. 
 
 
 ## Start the server application and predict on a new image.
 Flask allows you to serve an image of a handwritten digit with the server and get a prediction. 
 
-In the code below, I provide a REST endpoint that supports GET and POST requests.
+In the code below, I provided a REST endpoint that supports GET and POST requests.
 
 ```bash
 $ python app.py
@@ -97,21 +96,30 @@ $ python app.py
 ```
 You can now access the REST API via http://127.0.0.1:5002.
 
-While lightweight, Flask's built-in server is not suitable for production as it doesn't scale well. For production purposes, I've deployed the app in Heroku. 
+In the browser, upload an image from your local and run the prediction. It currently accepts files with the extensions 'png', 'jpg' and 'jpeg'. 
 
-This can be access at:
+## App Deployment options
+
+While lightweight, Flask's built-in server is *not suitable for production* as it doesn't scale well. For production purposes, I've deployed the app in **Heroku**:
+
+The app can be visited throught his url:
 https://quiet-journey-42975.herokuapp.com/
 
-I also added a self-hosted solution using `gunicorn`, a WSGI HTTP Server for UNIX. To run the Flask application in this server, simply use:
+I've also added a **self-hosted** solution using **`gunicorn`**, a WSGI HTTP Server for UNIX. To run the Flask application in this server, simply use:
 ```bash
 gunicorn "app:create_app()" -b 0.0.0.0:5002 --workers 8 --timeout 600 --log-level critical
 ```
 
+## Test coverage
+To quickly run inference with one image file, once the server is running, simply run the following line of code which uses a POST method to send an image to the server:
+```bash
+python tests/test_app.py
+```
 
 ## Model Architecture
 
-<img src="images_repo/mnist-model-architecture.png" width="480"  />
+<img src="images_repo/mnist-model-architecture.png" />
 
 The neural network contains 3 Convolutional layers, followed by 2 Fully Connected layers and 1 output layer that provides the estimations for each one of the 10 digit categories. 
 
-<img src="images_repo/mnist-model-summary.png" width="480"  />
+<img src="images_repo/mnist-model-summary.png"  />

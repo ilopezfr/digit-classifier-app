@@ -23,15 +23,15 @@ def create_app():
         if request.method == 'POST':
             # check if the POST request has the file part
             if 'file' not in request.files:
-                print('Error: file not uploaded')
+                app.logger.error('Error: file not uploaded')
                 return redirect('/error')
-            
+
             file = request.files['file']
 
             # check if user has not select file, browser also
             # submit an empty part without filename
             if file.filename == '':
-                print('Error: file empty')
+                app.logger.error('Error: file empty')
                 return redirect('/error')
 
             if file and allowed_file(file.filename):
@@ -67,23 +67,6 @@ def create_app():
         return render_template('predict.html', predicted_value=messages['image_pred'], 
             predicted_confidence=messages['confidence'],
             image=messages['file'])
-
-
-    ############## test app ##############
-    # @app.route('/prediction')
-    # def prediction():
-    #     # ensure an image was properly uploaded to our endpoint
-    #     if request.method == "POST":
-    #         file = request.files['file']
-    #         filename = secure_filename(file.filename)
-
-    #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-
-    #         image_pred, confidence = model_predict(file)
-    #     return image_pred, confidence
-    ######################################
-
 
     @app.errorhandler(Exception)
     def handle_error(e):
