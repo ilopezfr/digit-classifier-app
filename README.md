@@ -1,12 +1,12 @@
 #  Digit Classifier App
 
 
-## Instructions
+## Challenge Request:
 1. Develop a NN training pipeline for MNIST handwritten digit classification. 
 2. Implement an inference server with the trained model. The server should accept raw images as input and preduct the number with a probability. 
 
 
-## Requirements
+## Software Requirements
 
 This application is written using Python 3.6.
 
@@ -22,7 +22,7 @@ Main Modules:
 This repository contains the source code for a Python Flask Server application that has a Keras ML model deployed. REST API is used to communicate with the deployed model. The application allows one to upload an image of a handwritten digit and it returns the predicted digit. 
 
 
-Clone the repo, install the dependencies, and download the model weights. 
+To start, first clone the repo, then install the dependencies, and finally download the model weights. 
 
 ```bash
 git clone https://github.com/ilopezfr/digit-classifier-app.git
@@ -68,25 +68,27 @@ This repo is structured as follows:
 ├── Procfile
 ```
 
-## Train the model
-A trained model on MNIST dataset is already offered and stored under the file `/model`. The model was trained on 70,000 images, using the architecture described in the section below. It achieves 98% test accuracy after 20 epochs. 
+## Train the model (Optional)
+Two trained models on MNIST dataset are already offered and stored under the file `/model`. 
+- `model.h5` was trained on 70,000 images, using the architecture described in the section below. It achieves 98% test accuracy after 20 epochs. 
+- `model-lite.h5` was trained on the same data set, using the same architecture as `model.h5` except that it has an additional Max_pooling layer and a Batch Normalization layer in between the Convolution block and the Fully Connected layers. This model is lighter than `model.h5` and has only 20% of its parameters. However it's test accuracy is only 85%.  
 
-However, should you want to rebuild the model using the same architecture that's described below, you can run the following script:
+In any case, should you want to rebuild the model using the same architecture that's described below, you can run the following script:
 
 ```bash
 python model/train.py --e=20 --l=0.001
 ```
-The current script downloads MNIST dataset with 60,000 images, pre-process the images, performs data augmentation (+10000), and train and validates the model. 
+The `train.py` script automatically downloads MNIST dataset with 60,000 images, pre-process the images, performs data augmentation (+10000), and trains and evaluates the model on a test set. 
 
-This will create the model files `model.h5`, `model-weights.h5`, `model.json` in the folder `\model`. 
+It saves the model files `model.h5`, `model-weights.h5`, `model.json` in the folder `\model`. 
 
-With the model file, we are ready to serve the model via Flask. 
+With the model built, we are ready to serve it via Flask. 
 
 
 ## Start the server application and predict on a new image.
 Flask allows you to serve an image of a handwritten digit with the server and get a prediction. 
 
-In the code below, I provided a REST endpoint that supports GET and POST requests.
+In the code below, I provided a REST endpoint that supports GET and POST requests:
 
 ```bash
 $ python app.py
@@ -100,18 +102,22 @@ In the browser, upload an image from your local and run the prediction. It curre
 
 ## App Deployment options
 
-While lightweight, Flask's built-in server is *not suitable for production* as it doesn't scale well. For production purposes, I've deployed the app in **Heroku**:
+While lightweight, Flask's built-in server is *not suitable for production* as it doesn't scale well. For this requirement, I've provided two options:
 
-The app can be visited throught his url:
+### Hosted Option:
+App deployment in **Heroku**:
+
+The app is live and can be visited throught this url:
 https://quiet-journey-42975.herokuapp.com/
 
+### Self-hosted Option:
 I've also added a **self-hosted** solution using **`gunicorn`**, a WSGI HTTP Server for UNIX. To run the Flask application in this server, simply use:
 ```bash
 gunicorn "app:create_app()" -b 0.0.0.0:5002 --workers 8 --timeout 600 --log-level critical
 ```
 
 ## Test coverage
-To quickly run inference with one image file, once the server is running, simply run the following line of code which uses a POST method to send an image to the server:
+To quickly run inference with one image file, once the server is running, simply open a new terminal and run the following line of code which uses a POST method to send an image to the server:
 ```bash
 python tests/test_app.py
 ```
@@ -120,6 +126,6 @@ python tests/test_app.py
 
 <img src="images_repo/mnist-model-architecture.png" />
 
-The neural network contains 3 Convolutional layers, followed by 2 Fully Connected layers and 1 output layer that provides the estimations for each one of the 10 digit categories. 
+The neural network contains 3 Convolutional layers, followed by 2 Fully Connected layers and 1 output layer that provides the estimations for each one of the 10 digit categories. This is a summary of `model.h5`: 
 
 <img src="images_repo/mnist-model-summary.png"  />
